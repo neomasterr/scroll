@@ -1,0 +1,28 @@
+{
+  "name": "scroll",
+  "version": "1.0.0",
+  "description": "Scroll component for browser window",
+  "main": "scroll.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neomasterr/scroll.git"
+  },
+  "keywords": [
+    "scroll",
+    "scroll-to",
+    "window",
+    "document",
+    "dom",
+    "element",
+    "javascript",
+    "html"
+  ],
+  "author": "neomasterr",
+  "license": "MIT",
+  "dependencies": {
+    "bezier-easing": "^2.1.0"
+  }
+}
