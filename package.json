@@ -1,6 +1,6 @@
 {
   "name": "@neomasterr/scroll",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Scroll component for browser window",
   "main": "scroll.js",
   "scripts": {
