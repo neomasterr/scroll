@@ -125,7 +125,11 @@ Scroll.to = function($el, options = {}) {
             }
 
             lastY = Math.round(from - easing(distancePerTick * tick / distance) * distance);
-            window.scroll(0, lastY);
+
+            window.scrollTo({
+                top: lastY,
+                behavior: 'instant',
+            });
         }
 
         interval = setInterval(_loop, 1000 / fps);
