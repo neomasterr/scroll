@@ -1,3 +1,5 @@
+[![npm](https://img.shields.io/npm/v/@neomasterr/scroll.svg?style=flat-square)](https://www.npmjs.org/@neomasterr/scroll)
+
 # scroll
 
 ## Install
