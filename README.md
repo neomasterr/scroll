@@ -2,6 +2,8 @@
 
 # scroll
 
+Native instant behaviour scroll to DOM element
+
 ## Install
 ```
 npm install @neomasterr/scroll
