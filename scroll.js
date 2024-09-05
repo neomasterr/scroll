@@ -68,6 +68,7 @@ Scroll.to = function($el, options = {}) {
     const fps           = parseInt(options.fps, 10)     || 60;
     const offsetY       = parseInt(options.offsetY, 10) || 0;
     const interruptable = typeof options.interruptable == 'undefined' ? true : !!options.interruptable;
+    const easing        = options.easing || BezierEazing(0.25, 0.1, 0.25, 1.0);
 
     const top = (function($el, y = 0) {
         do {} while (y += $el.offsetTop, $el = $el.offsetParent);
@@ -80,9 +81,25 @@ Scroll.to = function($el, options = {}) {
     const distancePerTick = distance / ticks;
     let interval;
 
+    const steps = [];
+    for (let tick = 0; tick < ticks; ++tick) {
+        steps.push(Math.round(from - easing(distancePerTick * tick / distance) * distance));
+    }
+
     const promise = new Promise((resolve, reject) => {
         function _interruptOnScroll() {
-            if (window.scrollY != lastY) {
+            let found = false;
+
+            // проверка "истории" из последних 3х итераций
+            // если есть несовпадение значит прокрутка прерывалась пользователем
+            for (let i = tick; i >= 0 && i >= tick - 3; --i) {
+                if (steps[i] == window.scrollY) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
                 _done(false);
             }
         }
@@ -115,19 +132,16 @@ Scroll.to = function($el, options = {}) {
             _done(true);
         }
 
-        const easing = BezierEazing(0.25, 0.1, 0.25, 1.0);
-        let lastY    = from;
-        let tick     = 0;
+        let tick = 0;
+
         function _loop() {
             if (++tick >= ticks) {
                 _done(true);
                 return;
             }
 
-            lastY = Math.round(from - easing(distancePerTick * tick / distance) * distance);
-
             window.scrollTo({
-                top: lastY,
+                top: steps[tick],
                 behavior: 'instant',
             });
         }
